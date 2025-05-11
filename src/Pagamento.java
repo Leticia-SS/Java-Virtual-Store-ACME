@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,4 +13,19 @@ public class Pagamento {
         this.cliente = cliente;
     }
 
+    public BigDecimal getValorTotal() {
+        return produtos.stream().map(Produto::getPreco).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public LocalDate getDataCompra() {
+        return dataCompra;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
 }

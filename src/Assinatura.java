@@ -20,5 +20,4 @@ public class Assinatura {
         this.cliente = cliente;
     }
 
-
 }
