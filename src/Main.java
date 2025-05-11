@@ -37,10 +37,16 @@ public class Main {
                 new Pagamento(Arrays.asList(produtos.get(0), produtos.get(2),produtos.get(4)), LocalDate.now(), clientes.get(0)),
                 new Pagamento(Arrays.asList(produtos.get(1), produtos.get(3)), LocalDate.now().minusDays(1), clientes.get(2)),
                 new Pagamento(Arrays.asList(produtos.get(0), produtos.get(1), produtos.get(5)), LocalDate.now().minusMonths(1), clientes.get(1)),
-                new Pagamento(Arrays.asList(produtos.get(3), produtos.get(4)), LocalDate.now().minusDays(3), clientes.get(2))
+                new Pagamento(Arrays.asList(produtos.get(3), produtos.get(4)), LocalDate.now().minusDays(3), clientes.get(3))
         );
     }
 
-
+    private static List<Assinatura> criarAssinatura(List<Cliente> clientes) {
+        return Arrays.asList(
+                new Assinatura(new BigDecimal("99.98"),LocalDate.now().minusMonths(6), clientes.get(1)),
+                new Assinatura(new BigDecimal("99.98"),LocalDate.now().minusYears(1),LocalDate.now().minusMonths(1),clientes.get(0)),
+                new Assinatura(new BigDecimal("99.98"),LocalDate.now().minusMonths(10),LocalDate.now().minusMonths(3),clientes.get(3))
+        );
+    }
 
 }
