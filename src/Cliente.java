@@ -11,4 +11,8 @@ public class Cliente {
                 "nome='" + nome + '\'' +
                 '}';
     }
+
+    public String getNome() {
+        return nome;
+    }
 }

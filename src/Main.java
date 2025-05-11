@@ -4,10 +4,20 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        List<Produto> produtos = criarProdutos();
+        List<Cliente> clientes = criarClientes();
+        List<Pagamento> pagamentos = criarPagamentos(produtos, clientes);
+
+        System.out.println("====== Pagamentos por data ======\n");
+
+        // Ordenando pagamwntos por data e printando com nome e valor total
+        pagamentos.stream().sorted(Comparator.comparing(Pagamento::getDataCompra))
+                .forEach(p -> System.out.println(p.getDataCompra() + " | " + p.getCliente().getNome() + " | " + "R$" + p.getValorTotal()));
 
     }
 
