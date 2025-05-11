@@ -2,10 +2,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,9 +12,19 @@ public class Main {
 
         System.out.println("====== Pagamentos por data ======\n");
 
-        // Ordenando pagamwntos por data e printando com nome e valor total
+        // Ordenando pagamentos por data e printando com nome e valor total
         pagamentos.stream().sorted(Comparator.comparing(Pagamento::getDataCompra))
                 .forEach(p -> System.out.println(p.getDataCompra() + " | " + p.getCliente().getNome() + " | " + "R$" + p.getValorTotal()));
+
+        // Calcular e imprimir a soma dos valores de um pagamento com double
+        Optional<Pagamento> pagamentoOptional = Optional.ofNullable(pagamentos.get(1));
+        double soma = pagamentoOptional
+                .map(Pagamento::getValorTotal)
+                .map(BigDecimal::doubleValue)
+                .orElse(0.00);
+        System.out.println("\nSoma Pagamento index 1: R$" + soma + "\n");
+
+
 
     }
 
@@ -47,7 +54,8 @@ public class Main {
                 new Pagamento(Arrays.asList(produtos.get(0), produtos.get(2),produtos.get(4)), LocalDate.now(), clientes.get(0)),
                 new Pagamento(Arrays.asList(produtos.get(1), produtos.get(3)), LocalDate.now().minusDays(1), clientes.get(2)),
                 new Pagamento(Arrays.asList(produtos.get(0), produtos.get(1), produtos.get(5)), LocalDate.now().minusMonths(1), clientes.get(1)),
-                new Pagamento(Arrays.asList(produtos.get(3), produtos.get(4)), LocalDate.now().minusDays(3), clientes.get(3))
+                new Pagamento(Arrays.asList(produtos.get(3), produtos.get(4)), LocalDate.now().minusDays(3), clientes.get(3)),
+                new Pagamento(Arrays.asList(produtos.get(2), produtos.get(5)), LocalDate.now().minusDays(12), clientes.get(0))
         );
     }
 
