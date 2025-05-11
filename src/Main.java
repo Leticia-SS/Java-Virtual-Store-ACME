@@ -22,8 +22,14 @@ public class Main {
                 .map(Pagamento::getValorTotal)
                 .map(BigDecimal::doubleValue)
                 .orElse(0.00);
-        System.out.println("\nSoma Pagamento index 1: R$" + soma + "\n");
 
+        System.out.println("\nSoma Pagamento index 1: R$" + soma);
+
+        // Calcular valor de todos os pagamentos
+        BigDecimal totalPagamentos = pagamentos.stream().map(Pagamento::getValorTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        System.out.println("\nTotal de todos os Pagamentos: R$" + totalPagamentos);
 
 
     }
