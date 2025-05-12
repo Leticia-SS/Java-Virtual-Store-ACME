@@ -42,6 +42,7 @@ public class Main {
         produtosVendidos.forEach((nome, quantidade) -> System.out.println(nome + ": " + quantidade));
 
 
+
     }
 
     private static List<Produto> criarProdutos() {
