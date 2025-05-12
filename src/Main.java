@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Main {
         List<Cliente> clientes = criarClientes();
         List<Pagamento> pagamentos = criarPagamentos(produtos, clientes);
 
-        System.out.println("====== Pagamentos por data ======\n");
+        System.out.println("====== Pagamentos por data ======");
 
         // Ordenando pagamentos por data e printando com nome e valor total
         pagamentos.stream().sorted(Comparator.comparing(Pagamento::getDataCompra))
@@ -31,17 +32,26 @@ public class Main {
 
         System.out.println("\nTotal de todos os Pagamentos: R$" + totalPagamentos);
 
+        // Imprimir o valor de cada produto vendido
+        System.out.println("\n====== Quantidade de produtois vendida ======");
+
+        Map<String, Long> produtosVendidos = pagamentos.stream()
+                .flatMap(p -> p.getProdutos().stream())
+                .collect(Collectors.groupingBy(Produto::getNome, Collectors.counting()));
+
+        produtosVendidos.forEach((nome, quantidade) -> System.out.println(nome + ": " + quantidade));
+
 
     }
 
     private static List<Produto> criarProdutos() {
         return Arrays.asList(
-                new Produto("Música 1", Paths.get("/musicas/1.mp3"), new BigDecimal("9.99")),
-                new Produto("Música 2", Paths.get("/musicas/2.mp3"), new BigDecimal("12.99")),
-                new Produto("Vídeo 1", Paths.get("/videos/1.mp4"), new BigDecimal("29.99")),
-                new Produto("Vídeo 2", Paths.get("/videos/2.mp4"), new BigDecimal("39.99")),
-                new Produto("Imagem 1", Paths.get("/imagens/1.jpg"), new BigDecimal("5.99")),
-                new Produto("Imagem 2", Paths.get("/imagens/2.jpg"), new BigDecimal("7.99"))
+                new Produto("Música 1", Paths.get("/musicas1.mp3"), new BigDecimal("9.99")),
+                new Produto("Música 2", Paths.get("/musicas2.mp3"), new BigDecimal("12.99")),
+                new Produto("Vídeo 1", Paths.get("/videos1.mp4"), new BigDecimal("29.99")),
+                new Produto("Vídeo 2", Paths.get("/videos2.mp4"), new BigDecimal("39.99")),
+                new Produto("Imagem 1", Paths.get("/imagens1.jpg"), new BigDecimal("5.99")),
+                new Produto("Imagem 2", Paths.get("/imagens2.jpg"), new BigDecimal("7.99"))
         );
     }
 
